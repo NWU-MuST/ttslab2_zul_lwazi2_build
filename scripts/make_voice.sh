@@ -41,19 +41,14 @@ if [ ! -e frontend.voice.pickle ]; then
     popd
      
     #Make `main` pronun resources
-    LANG=tswana
+    LANG=zulu
     ttslab_make_phoneset.py $LANG
     ttslab_make_g2p.py icu
     ttslab_make_pronundicts.py
      
-    echo "TRAIN DIACRITISER"
-    $HOME/src/ttslab2/ttslab/diacritise_graphclassf.py --noxval --context 5 data/diacr/diacritic.descr.json < data/diacr/tsn_lwazi2_utts.txt > main_diacritiser.pickle
-    echo "TRAIN POSTAGGER"
-    $HOME/src/ttslab2/ttslab/postagger.py train data/pos/data.tsv main_postagger.pickle
-     
-    $HOME/scripts/ttslab_make_tsnproto_voice.py frontend $LANG englishZA
+    ttslab_make_voice.py frontend $LANG englishZA
 fi
 
 ttslab_make_synthesizer_hts.py
-$HOME/scripts/ttslab_make_tsnproto_voice.py main_synthesizer.pickle $LANG englishZA
+ttslab_make_voice.py main_synthesizer.pickle $LANG englishZA
 mv voice.pickle hts_voice.pickle

@@ -14,4 +14,4 @@ ln -s mix_excitation_5filters_99taps_16Kz.txt mixfilter
 ln -s pulsedispersion.impulseresponse16000.txt pdfilter
 
 bash $HOME/scripts/make_voice.sh
-cp $HOME/hts_voice.pickle /mnt/ext/tsn_lwazi2.voice.pickle
+cp $HOME/hts_voice.pickle /mnt/ext/zul_lwazi2.voice.pickle
