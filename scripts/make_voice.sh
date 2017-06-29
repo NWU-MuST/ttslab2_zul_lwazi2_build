@@ -36,8 +36,8 @@ if [ ! -e frontend.voice.pickle ]; then
      
     #Setup `main` pronun resources
     pushd data/pronun
-    ln -s tsn.addendum.pronundict addendum.pronundict
-    ln -s tsn.main.pronundict main.pronundict
+    ln -s zul.addendum.pronundict addendum.pronundict
+    ln -s zul.main.pronundict main.pronundict
     popd
      
     #Make `main` pronun resources
