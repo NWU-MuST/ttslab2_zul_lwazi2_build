@@ -1,6 +1,7 @@
 #!/bin/bash
 
 cd $HOME
+LANG=zulu
 
 if [ ! -e frontend.voice.pickle ]; then
     #Make `englishZA` pronun resources
@@ -41,7 +42,6 @@ if [ ! -e frontend.voice.pickle ]; then
     popd
      
     #Make `main` pronun resources
-    LANG=zulu
     ttslab_make_phoneset.py $LANG
     ttslab_make_g2p.py icu
     ttslab_make_pronundicts.py
