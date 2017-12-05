@@ -1,7 +1,7 @@
 TTSLab Lwazi2 isiZulu build scripts
 ===================================
 
-This repository contains pre-setup data and scripts for building a isiZulu TTS voice using [TTSLab][1] and associated [build tools][2]. This repository should be built against TTSLab `commit 5cb979c...`. The recommended way to do this is described in `./HOWTO.md` and involves cloning this repository and running the accompanying [Docker][3] script (`./Dockerfile`). 
+This repository contains pre-setup data and scripts for building a isiZulu TTS voice using [TTSLab][1] and associated [build tools][2]. This repository should be built against TTSLab `commit 99f61e8...`. The recommended way to do this is described in `./HOWTO.md` and involves cloning this repository and running the accompanying [Docker][3] script (`./Dockerfile`). 
 
 The copyright and licence information for scripts in this repository can be found in `./COPYRIGHT`, `./LICENCE-APACHE` and `./LICENCE-MIT`. This repository also contains software and data developed by third parties used under licence in the `./src` and `./recs` directories. Copyright and licence information for third-party components is contained in each individual sub-directory or source file. Summaries of these components including attribution information are briefly presented below.
 
@@ -63,14 +63,14 @@ The source code for the following third-party tools are required but are not inc
 }
 ```
 
- 2. D.R. van Niekerk, __"Final Report: Rapid development of increasingly natural sounding speech synthesis for South African languages,"__ North-West University, Vanderbijlpark, South Africa, Tech. Rep. _Forthcoming._
+ 2. D.R. van Niekerk, __"Final technical report: Rapid development of increasingly natural sounding speech synthesis for South African languages,"__ North-West University, Vanderbijlpark, South Africa, Tech. Rep. 2017.
 ```bibtex
 @techreport{vniekerk2017ntts,
-	title = {{Final Report: Rapid development of increasingly natural sounding speech synthesis for South African languages}},
+	title = {{Final technical report: Rapid development of increasingly natural sounding speech synthesis for South African languages}},
 	author = {van Niekerk, D. R.},
 	institution = {{North-West University}},
 	address = {Vanderbijlpark, South Africa},
-	year = {forthcoming},
+	year = {2017},
 }
 ```
 

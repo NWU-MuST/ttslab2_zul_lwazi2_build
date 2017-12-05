@@ -1,5 +1,5 @@
 ############################################################
-#### TTSLab2 Lwazi2 Setswana build scripts
+#### TTSLab2 Lwazi2 IsiZulu build scripts
 ############################################################
 FROM ubuntu:16.04
 
@@ -10,7 +10,7 @@ LABEL Description="TTSLab2 Lwazi2 Setswana build scripts"
 ## INSTALL STANDARD TOOLS FROM UBUNTU REPO
 ############################################################
 RUN apt-get clean all && apt-get update
-RUN apt-get install -y --force-yes build-essential git #Required to fetch and build source
+RUN apt-get install -y --force-yes build-essential git wget #Required to fetch and build source
 RUN apt-get install -y --force-yes csh #Required by SPTK
 RUN apt-get install -y --force-yes libx11-dev #Required by HTK
 RUN apt-get install -y --force-yes gfortran #Required by HTS
@@ -19,7 +19,6 @@ RUN apt-get install -y --force-yes python-cffi python-dateutil python-scipy pyth
 #RUN apt-get install -y --force-yes libncurses5-dev #Required by EST
 RUN apt-get install -y --force-yes python-setuptools swig #Required to build Sequitur
 RUN apt-get install -y --force-yes bc sox normalize-audio tcl-snack #Required tools for voice build scripts
-
 
 ## SETUP USER, LOCAL SOURCE, AND DATA
 ############################################################
@@ -89,13 +88,22 @@ RUN make
 WORKDIR $USERHOME/local/bin
 RUN ln -s $USERHOME/src/praat/praat
 
+## Fetch and build OpenFST
+WORKDIR $USERHOME/src
+RUN wget http://openfst.org/twiki/pub/FST/FstDownload/openfst-1.6.5.tar.gz
+RUN tar -xzvf openfst-1.6.5.tar.gz
+WORKDIR $USERHOME/src/openfst-1.6.5
+RUN ./configure --prefix=/home/demitasse/local --enable-bin --enable-far --enable-python
+RUN make
+RUN make install
+
 ## Fetch, build and setup TTSLab and tools
 WORKDIR $USERHOME/src
 RUN git clone https://github.com/NWU-MuST/ttslab2.git
 RUN git clone https://github.com/NWU-MuST/ttslabdev2.git
 #ttslab
 WORKDIR $USERHOME/src/ttslab2
-RUN git checkout 5cb979c
+RUN git checkout 99f61e8
 RUN mkdir -p hts_engine/build
 WORKDIR $USERHOME/src/ttslab2/hts_engine/build
 RUN cmake ..
@@ -111,7 +119,7 @@ WORKDIR $USERHOME/src/ttslabdev2/voicetools/HTS-template_16k_MELP
 RUN mkdir data/utts data/raw data/wav data/questions data/labels
 RUN tar -czvf ../HTS-template_16k_MELP.tar.gz .
 #paths
-ENV PATH=$USERHOME/src/ttslabdev2/scripts:$PATH
+ENV PATH=$USERHOME/src/ttslabdev2/scripts:$PATH:$USERHOME/src/ttslab2/ttslab
 ENV PYTHONPATH=$USERHOME/src/ttslab2:$USERHOME/src/ttslabdev2/modules:$PYTHONPATH
 
 
@@ -124,6 +132,7 @@ RUN git clone https://github.com/NWU-MuST/za_lex.git
 WORKDIR $USERHOME/src/za_lex
 RUN git checkout bfc2427
 ENV PATH=$USERHOME/src/za_lex/scripts:$PATH
+ENV ZALEX=$USERHOME/src/za_lex
 
 #eng g2p
 WORKDIR $USERHOME/lang/pronun

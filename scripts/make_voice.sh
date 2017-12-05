@@ -45,10 +45,14 @@ if [ ! -e frontend.voice.pickle ]; then
     ttslab_make_phoneset.py $LANG
     ttslab_make_g2p.py icu
     ttslab_make_pronundicts.py
-     
-    ttslab_make_voice.py frontend $LANG englishZA
+
+    echo "MAKE PARSER AND MORPHDICT"
+    $HOME/scripts/make_zulmorph_dict.py > main_morphdict.pickle
+    morphparser_dcg.py --dumpmodel $ZALEX/data/zul/morphrules.dcg.txt $ZALEX/data/zul/morphrules.descr.json > main_morphparser.pickle
+
+    $HOME/scripts/ttslab_make_zulproto_voice.py frontend $LANG englishZA
 fi
 
 ttslab_make_synthesizer_hts.py
-ttslab_make_voice.py main_synthesizer.pickle $LANG englishZA
+$HOME/scripts/ttslab_make_zulproto_voice.py main_synthesizer.pickle $LANG englishZA
 mv voice.pickle hts_voice.pickle
